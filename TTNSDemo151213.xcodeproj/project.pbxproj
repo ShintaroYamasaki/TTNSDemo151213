@@ -14,6 +14,8 @@
 		8E729BDC1C1366AA0014275A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E729BDA1C1366AA0014275A /* LaunchScreen.storyboard */; };
 		8E729BE71C1366AA0014275A /* TTNSDemo151213Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729BE61C1366AA0014275A /* TTNSDemo151213Tests.swift */; };
 		8E729BF21C1366AA0014275A /* TTNSDemo151213UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729BF11C1366AA0014275A /* TTNSDemo151213UITests.swift */; };
+		8E729C001C136BE80014275A /* TTNSDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */; };
+		8E729C021C136C480014275A /* BingoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729C011C136C480014275A /* BingoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		8E729BED1C1366AA0014275A /* TTNSDemo151213UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTNSDemo151213UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E729BF11C1366AA0014275A /* TTNSDemo151213UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTNSDemo151213UITests.swift; sourceTree = "<group>"; };
 		8E729BF31C1366AA0014275A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTNSDemoViewController.swift; sourceTree = "<group>"; };
+		8E729C011C136C480014275A /* BingoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				8E729BD81C1366AA0014275A /* Assets.xcassets */,
 				8E729BDA1C1366AA0014275A /* LaunchScreen.storyboard */,
 				8E729BDD1C1366AA0014275A /* Info.plist */,
+				8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */,
+				8E729C011C136C480014275A /* BingoViewController.swift */,
 			);
 			path = TTNSDemo151213;
 			sourceTree = "<group>";
@@ -193,6 +199,12 @@
 				TargetAttributes = {
 					8E729BCD1C1366AA0014275A = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = G966FXHK77;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					8E729BE11C1366AA0014275A = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -258,6 +270,8 @@
 			files = (
 				8E729BD41C1366AA0014275A /* ViewController.swift in Sources */,
 				8E729BD21C1366AA0014275A /* AppDelegate.swift in Sources */,
+				8E729C021C136C480014275A /* BingoViewController.swift in Sources */,
+				8E729C001C136BE80014275A /* TTNSDemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TTNSDemo151213/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanamaru.TTNSDemo151213;
@@ -410,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TTNSDemo151213/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanamaru.TTNSDemo151213;
