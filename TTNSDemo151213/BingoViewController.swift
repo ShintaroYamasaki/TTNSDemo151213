@@ -10,7 +10,7 @@ import UIKit
 
 import CoreBluetooth
 
-class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate {
+class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate, BingoSettingDelegate {
     
     enum BingoStatus {
         case Connecting
@@ -42,7 +42,7 @@ class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /// 接続中
     var isConnected: Bool = false
     /// 各ボタンの番号割り当て
-    var openNum: [String] = ["08", "18", "24", "32", "48", "00"]
+    var openNum: [String] = []
     
     let kServiceUUID = "ADA99A7F-888B-4E9F-8080-07DDC240F3CE"
     let kWriteUUID = "ADA99A7F-888B-4E9F-8082-07DDC240F3CE"
@@ -52,15 +52,10 @@ class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        reloadOpenNum()
 
         enableButton(false)
-        
-        btn1.setTitle(openNum[0], forState: UIControlState.Normal)
-        btn2.setTitle(openNum[1], forState: UIControlState.Normal)
-        btn3.setTitle(openNum[2], forState: UIControlState.Normal)
-        btn4.setTitle(openNum[3], forState: UIControlState.Normal)
-        btn5.setTitle(openNum[4], forState: UIControlState.Normal)
-        btn6.setTitle(openNum[5], forState: UIControlState.Normal)
         
         // 今回はボタン6は使わない
         btn6.hidden = true
@@ -121,6 +116,50 @@ class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         btnConnect.setTitle("切断", forState: .Normal)
     }
+    
+    func reloadOpenNum() {
+        if (NSUserDefaults.standardUserDefaults().stringForKey("BUTTON1") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("08", forKey: "BUTTON1")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("BUTTON2") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("18", forKey: "BUTTON2")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("BUTTON3") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("24", forKey: "BUTTON3")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("BUTTON4") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("33", forKey: "BUTTON4")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("BUTTON5") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("48", forKey: "BUTTON5")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("BUTTON6") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("00", forKey: "BUTTON6")
+        }
+        
+        openNum = [
+            NSUserDefaults.standardUserDefaults().stringForKey("BUTTON1")!,
+            NSUserDefaults.standardUserDefaults().stringForKey("BUTTON2")!,
+            NSUserDefaults.standardUserDefaults().stringForKey("BUTTON3")!,
+            NSUserDefaults.standardUserDefaults().stringForKey("BUTTON4")!,
+            NSUserDefaults.standardUserDefaults().stringForKey("BUTTON5")!,
+            NSUserDefaults.standardUserDefaults().stringForKey("BUTTON6")!
+        ]
+        
+        btn1.setTitle(openNum[0], forState: UIControlState.Normal)
+        btn2.setTitle(openNum[1], forState: UIControlState.Normal)
+        btn3.setTitle(openNum[2], forState: UIControlState.Normal)
+        btn4.setTitle(openNum[3], forState: UIControlState.Normal)
+        btn5.setTitle(openNum[4], forState: UIControlState.Normal)
+        btn6.setTitle(openNum[5], forState: UIControlState.Normal)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "BINGOSETTING") {
+            let bv: BingoSettingViewController = segue.destinationViewController as! BingoSettingViewController
+            bv.delegate = self
+        }
+    }
 
     // MARK: - IBAction
     /// 戻るボタン
@@ -130,6 +169,10 @@ class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         isConnected = false
         
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func onSetting(sender: AnyObject) {
+        self.performSegueWithIdentifier("BINGOSETTING", sender: nil)
     }
     
     /// ボタン1
@@ -433,5 +476,10 @@ class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         print("Success Write: %@", peripheral.identifier.UUIDString)
+    }
+    
+    // MARK: BingoSettingDelegate
+    func completedSetting() {
+        reloadOpenNum()
     }
 }

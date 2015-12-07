@@ -16,6 +16,7 @@
 		8E729BF21C1366AA0014275A /* TTNSDemo151213UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729BF11C1366AA0014275A /* TTNSDemo151213UITests.swift */; };
 		8E729C001C136BE80014275A /* TTNSDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */; };
 		8E729C021C136C480014275A /* BingoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729C011C136C480014275A /* BingoViewController.swift */; };
+		9A3258D11C1597B1009B669E /* BingoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3258D01C1597B1009B669E /* BingoSettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		8E729BF31C1366AA0014275A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTNSDemoViewController.swift; sourceTree = "<group>"; };
 		8E729C011C136C480014275A /* BingoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingoViewController.swift; sourceTree = "<group>"; };
+		9A3258D01C1597B1009B669E /* BingoSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingoSettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				8E729BDD1C1366AA0014275A /* Info.plist */,
 				8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */,
 				8E729C011C136C480014275A /* BingoViewController.swift */,
+				9A3258D01C1597B1009B669E /* BingoSettingViewController.swift */,
 			);
 			path = TTNSDemo151213;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E729BD41C1366AA0014275A /* ViewController.swift in Sources */,
+				9A3258D11C1597B1009B669E /* BingoSettingViewController.swift in Sources */,
 				8E729BD21C1366AA0014275A /* AppDelegate.swift in Sources */,
 				8E729C021C136C480014275A /* BingoViewController.swift in Sources */,
 				8E729C001C136BE80014275A /* TTNSDemoViewController.swift in Sources */,
@@ -500,6 +504,7 @@
 				8E729BF81C1366AA0014275A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E729BF91C1366AA0014275A /* Build configuration list for PBXNativeTarget "TTNSDemo151213Tests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +513,7 @@
 				8E729BFB1C1366AA0014275A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E729BFC1C1366AA0014275A /* Build configuration list for PBXNativeTarget "TTNSDemo151213UITests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +522,7 @@
 				8E729BFE1C1366AA0014275A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
