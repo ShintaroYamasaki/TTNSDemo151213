@@ -187,16 +187,17 @@
                         <outlet property="btnStart" destination="nga-qW-oRW" id="n9Y-S8-ZHf"/>
                         <outlet property="lblLog" destination="jB3-Bm-il3" id="cjP-sh-eNv"/>
                         <outlet property="tblDevices" destination="wEV-kF-xsE" id="Kec-FJ-WjR"/>
+                        <segue destination="wfM-5A-xlo" kind="modal" identifier="TECHSETTING" id="PgO-ve-C8Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Scb-EN-ADM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="965" y="247"/>
         </scene>
-        <!--View Controller-->
+        <!--Demo Setting View Controller-->
         <scene sceneID="WJy-ms-Ea8">
             <objects>
-                <viewController id="wfM-5A-xlo" sceneMemberID="viewController">
+                <viewController id="wfM-5A-xlo" customClass="TTNSDemoSettingViewController" customModule="TTNSDemo151213" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kHr-ud-37w"/>
                         <viewControllerLayoutGuide type="bottom" id="0gf-FU-dVh"/>
@@ -209,6 +210,9 @@
                                 <rect key="frame" x="20" y="28" width="75" height="30"/>
                                 <animations/>
                                 <state key="normal" title="キャンセル"/>
+                                <connections>
+                                    <action selector="onBack" destination="wfM-5A-xlo" eventType="touchUpInside" id="C2E-r2-gqv"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwc-jR-zdK">
                                 <rect key="frame" x="20" y="76" width="11.5" height="20.5"/>
@@ -249,9 +253,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="csZ-Qi-ct5">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-100" minimumValue="-1000" translatesAutoresizingMaskIntoConstraints="NO" id="csZ-Qi-ct5">
                                 <rect key="frame" x="83" y="178" width="94" height="29"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="chageStepperRSSI:" destination="wfM-5A-xlo" eventType="valueChanged" id="T3a-sD-3ZZ"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Av-d9-hUS">
                                 <rect key="frame" x="199" y="182" width="41" height="21"/>
@@ -269,6 +276,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="onOK" destination="wfM-5A-xlo" eventType="touchUpInside" id="YCi-o8-as2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -294,6 +304,12 @@
                             <constraint firstItem="Or2-BB-loR" firstAttribute="top" secondItem="5Wb-FX-z1G" secondAttribute="bottom" constant="14" id="tVe-1B-5It"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lblRSSI" destination="5Av-d9-hUS" id="gk4-Yh-jNG"/>
+                        <outlet property="stpRSSI" destination="csZ-Qi-ct5" id="Vu0-4I-am7"/>
+                        <outlet property="txtA" destination="Or2-BB-loR" id="HmJ-ZI-dUe"/>
+                        <outlet property="txtB" destination="isa-rO-s5e" id="tNJ-VO-JaD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Efc-CR-j2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

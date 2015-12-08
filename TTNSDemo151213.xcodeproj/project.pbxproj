@@ -17,6 +17,7 @@
 		8E729C001C136BE80014275A /* TTNSDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */; };
 		8E729C021C136C480014275A /* BingoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729C011C136C480014275A /* BingoViewController.swift */; };
 		9A3258D11C1597B1009B669E /* BingoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3258D01C1597B1009B669E /* BingoSettingViewController.swift */; };
+		9A3258D31C16C8DB009B669E /* TTNSDemoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3258D21C16C8DB009B669E /* TTNSDemoSettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTNSDemoViewController.swift; sourceTree = "<group>"; };
 		8E729C011C136C480014275A /* BingoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingoViewController.swift; sourceTree = "<group>"; };
 		9A3258D01C1597B1009B669E /* BingoSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingoSettingViewController.swift; sourceTree = "<group>"; };
+		9A3258D21C16C8DB009B669E /* TTNSDemoSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTNSDemoSettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				8E729BDA1C1366AA0014275A /* LaunchScreen.storyboard */,
 				8E729BDD1C1366AA0014275A /* Info.plist */,
 				8E729BFF1C136BE80014275A /* TTNSDemoViewController.swift */,
+				9A3258D21C16C8DB009B669E /* TTNSDemoSettingViewController.swift */,
 				8E729C011C136C480014275A /* BingoViewController.swift */,
 				9A3258D01C1597B1009B669E /* BingoSettingViewController.swift */,
 			);
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E729BD41C1366AA0014275A /* ViewController.swift in Sources */,
+				9A3258D31C16C8DB009B669E /* TTNSDemoSettingViewController.swift in Sources */,
 				9A3258D11C1597B1009B669E /* BingoSettingViewController.swift in Sources */,
 				8E729BD21C1366AA0014275A /* AppDelegate.swift in Sources */,
 				8E729C021C136C480014275A /* BingoViewController.swift in Sources */,

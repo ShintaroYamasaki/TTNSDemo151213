@@ -10,7 +10,7 @@ import UIKit
 
 import CoreBluetooth
 
-class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate {
+class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate, TTNSDemoSettingDelegate {
 
     enum TTNSStatus {
         case Connecting
@@ -111,6 +111,12 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
         btnB.enabled = false
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "TECHSETTING") {
+            let tv: TTNSDemoSettingViewController = segue.destinationViewController as! TTNSDemoSettingViewController
+            tv.delegate = self
+        }
+    }
     
     // MARK: IBAction
     @IBAction func onBack(senfer: AnyObject) {
@@ -196,7 +202,11 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
             break
         }
 
-        let log: String = String(format: "%@\n%@\n%@", peripheral.name!, stxt, peripheral.identifier.UUIDString)
+        var rtxt: String = "non"
+        if (rssis[peripheral.identifier.UUIDString] != nil) {
+            rtxt = rssis[peripheral.identifier.UUIDString]!
+        }
+        let log: String = String(format: "%@\n%@ RSSI: %@\n%@", peripheral.name!, stxt, rtxt, peripheral.identifier.UUIDString)
         
         cell.textLabel?.text = log
         cell.textLabel?.numberOfLines = 3
@@ -406,10 +416,10 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
         rssis[peripheral.identifier.UUIDString] = RSSI.stringValue
         tblDevices.reloadData()
         
-        let limit: Int = NSUserDefaults.standardUserDefaults().integerForKey("RSSI")
+        let limit: Double = NSUserDefaults.standardUserDefaults().doubleForKey("RSSI")
         
         // もう一度読みこむ
-        if (RSSI.integerValue < limit) {
+        if (Double(RSSI.integerValue) < limit) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
                 usleep(400);
                 peripheral.readRSSI();
@@ -426,4 +436,8 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
         write(peripheral)
     }
 
+    // MARK: TTNSDemoDelegate
+    func completeSetting() {
+        
+    }
 }
