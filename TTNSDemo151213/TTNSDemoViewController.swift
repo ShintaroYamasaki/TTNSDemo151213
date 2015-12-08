@@ -40,6 +40,7 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
     var peripherals: [CBPeripheral] = []
     var characteristics: [String: CBCharacteristic] = [:]
     var status: [String: TTNSStatus] = [:]
+    var rssis: [String: String] = [:]
     
     let kServiceUUID = "ADA99A7F-888B-4E9F-8080-07DDC240F3CE"
     let kWriteUUID = "ADA99A7F-888B-4E9F-8082-07DDC240F3CE"
@@ -49,9 +50,29 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // セントラルマネージャ初期化
+        centralManager = CBCentralManager.init(delegate: self, queue: nil)
+        
+        tblDevices.delegate = self
+        tblDevices.dataSource = self
+        
         lblLog.text = ""
         btnStart.setTitle("AかBを選択", forState: UIControlState.Normal)
         btnStart.enabled = false
+        
+        reloadSendNum()
+    }
+    
+    func reloadSendNum() {
+        if (NSUserDefaults.standardUserDefaults().stringForKey("NUM_A") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("08", forKey: "NUM_A")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("NUM_B") == nil) {
+            NSUserDefaults.standardUserDefaults().setObject("18", forKey: "NUM_B")
+        }
+        if (NSUserDefaults.standardUserDefaults().stringForKey("RSSI") == nil) {
+            NSUserDefaults.standardUserDefaults().setInteger(-100, forKey: "RSSI")
+        }
     }
 
     func disconnect() {
@@ -93,6 +114,9 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: IBAction
     @IBAction func onBack(senfer: AnyObject) {
+        self.disconnect()
+        isRunning = false
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -186,7 +210,19 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // MARK: - Writre
-    func write(num: String) {
+    func write(peripheral: CBPeripheral) {
+        var num:String = ""
+        switch heatPoint! as HeatPoint {
+            case .A:
+                status[peripheral.identifier.UUIDString] = TTNSStatus.WroteA
+                num = NSUserDefaults.standardUserDefaults().stringForKey("NUM_A")!
+                break
+            case .B:
+                status[peripheral.identifier.UUIDString] = TTNSStatus.WroteB
+                num = NSUserDefaults.standardUserDefaults().stringForKey("NUM_B")!
+                break
+        }
+        
         let num_nsdata = num.dataUsingEncoding(NSASCIIStringEncoding)
         let datalength = num_nsdata?.length
         var num_array = [CUnsignedChar](count: datalength!, repeatedValue: 0)
@@ -206,25 +242,27 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
         print("%@", cmd_data)
         
         // 書き込み
-        for peripheral in peripherals {
-            let characteristic = characteristics[peripheral.identifier.UUIDString]
-            if (characteristic != nil) {
-                peripheral.writeValue(cmd_data, forCharacteristic: characteristic!, type: CBCharacteristicWriteType.WithResponse)
-                let log: String = String(format: "Write %@ %@", num, peripheral.identifier.UUIDString)
-                print(log)
-                lblLog.text = log
-                
-                switch heatPoint! as HeatPoint {
-                    case .A:
-                        status[peripheral.identifier.UUIDString] = TTNSStatus.WroteA
-                        break
-                    case .B:
-                        status[peripheral.identifier.UUIDString] = TTNSStatus.WroteB
-                        break
-                }
-                tblDevices.reloadData()
+        let characteristic = characteristics[peripheral.identifier.UUIDString]
+        if (characteristic != nil) {
+            // 書き込み
+            peripheral.writeValue(cmd_data, forCharacteristic: characteristic!, type: CBCharacteristicWriteType.WithResponse)
+            
+            let log: String = String(format: "Write %@ %@", num, peripheral.identifier.UUIDString)
+            print(log)
+            lblLog.text = log
+            
+            switch heatPoint! as HeatPoint {
+                case .A:
+                    status[peripheral.identifier.UUIDString] = TTNSStatus.WroteA
+                    break
+                case .B:
+                    status[peripheral.identifier.UUIDString] = TTNSStatus.WroteB
+                    break
             }
+            
+            tblDevices.reloadData()
         }
+        
     }
     
     // MARK: - CBCentralManagerDelegate
@@ -344,6 +382,9 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
             if (characteristic.UUID.UUIDString.isEqual(kWriteUUID)) {
                 // 保持
                 characteristics[peripheral.identifier.UUIDString] = characteristic
+                
+                // RSSIチェック
+                peripheral.readRSSI()
             }
         }
     }
@@ -358,5 +399,31 @@ class TTNSDemoViewController: UIViewController, UITableViewDelegate, UITableView
         print("Success Write: %@", peripheral.identifier.UUIDString)
     }
 
+    // RSSI更新
+    func peripheral(peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: NSError?) {
+        print("RSSI %d %@", RSSI.intValue, peripheral.identifier.UUIDString)
+        
+        rssis[peripheral.identifier.UUIDString] = RSSI.stringValue
+        tblDevices.reloadData()
+        
+        let limit: Int = NSUserDefaults.standardUserDefaults().integerForKey("RSSI")
+        
+        // もう一度読みこむ
+        if (RSSI.integerValue < limit) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                usleep(400);
+                peripheral.readRSSI();
+            });
+            
+            return
+        }
+        
+        let log = String(format: "Start Writing %@", peripheral.identifier.UUIDString)
+        lblLog.text = log
+        print(log)
+        
+        
+        write(peripheral)
+    }
 
 }
