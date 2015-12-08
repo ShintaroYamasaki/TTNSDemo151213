@@ -45,6 +45,10 @@ class TTNSDemoSettingViewController: UIViewController {
     @IBAction func chageStepperRSSI(sender: AnyObject) {
         lblRSSI.text = String(format: "%f", stpRSSI.value)
     }
+    
+    @IBAction func tapScreen(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
 }
 
 protocol TTNSDemoSettingDelegate {

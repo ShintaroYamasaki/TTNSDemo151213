@@ -52,6 +52,10 @@ class BingoSettingViewController: UIViewController {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func tapScreen(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
 
 }
 
