@@ -58,7 +58,7 @@ class BingoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         enableButton(false)
         
         // 今回はボタン6は使わない
-        btn6.hidden = true
+//        btn6.hidden = true
         
         // セントラルマネージャ初期化
         centralManager = CBCentralManager.init(delegate: self, queue: nil)

@@ -34,7 +34,7 @@ class TTNSDemoSettingViewController: UIViewController {
     
     @IBAction func onOK() {
         NSUserDefaults.standardUserDefaults().setObject(txtA.text, forKey: "NUM_A")
-        NSUserDefaults.standardUserDefaults().setObject(txtA.text, forKey: "NUM_B")
+        NSUserDefaults.standardUserDefaults().setObject(txtB.text, forKey: "NUM_B")
         NSUserDefaults.standardUserDefaults().setDouble(stpRSSI.value, forKey: "RSSI")
         
         delegate?.completeSetting()
